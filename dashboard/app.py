@@ -2,7 +2,7 @@ from flask import Flask, render_template_string
 from flask_mqtt import Mqtt
 
 app = Flask(__name__)
-app.config['MQTT_BROKER_URL'] = 'broker'
+app.config['MQTT_BROKER_URL'] = 'localhost'
 app.config['MQTT_BROKER_PORT'] = 1883
 mqtt = Mqtt(app)
 
@@ -20,7 +20,6 @@ def index():
         <h2>Current Temperature: {latest_temp}°C</h2>
     """)
 
-@app.before_first_request
 def setup():
     mqtt.subscribe('home/temperature/reading')
     

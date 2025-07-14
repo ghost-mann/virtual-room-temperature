@@ -9,10 +9,3 @@ services:
     build: ./simulator
     depends_on:
       - broker
-
-  dashboard:
-    build: ./dashboard
-    ports:
-      - "5000:5000"
-    depends_on:
-      - broker

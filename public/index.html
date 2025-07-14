@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Room Temperature Monitor</title>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+</head>
+<body>
+    <h1>🌡️ Room Temperature Monitor</h1>
+    <h2 id="temp">Loading temperature...</h2>
+
+    <script>
+        const client = mqtt.connect("ws://localhost:9001");
+
+        client.on("connect", function () {
+            console.log("Connected to MQTT broker via WebSocket");
+            client.subscribe("home/temperature/reading");
+        });
+
+        client.on("message", function (topic, message) {
+            document.getElementById("temp").innerText = `Current Temperature: ${message.toString()}°C`;
+        });
+    </script>
+</body>
+</html>
